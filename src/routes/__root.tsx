@@ -8,9 +8,13 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
+import { AppLayout } from "../components/AppLayout";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const themeInitScript = `(function(){try{var t=localStorage.getItem('ph-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 function NotFoundComponent() {
   return (
@@ -76,21 +80,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1, viewport-fit=cover",
+      },
+      { title: "Productivity Hub — Tasks & AI Prompt Maker" },
+      {
+        name: "description",
+        content:
+          "Productivity Hub combines a smart to-do list manager with an AI prompt maker for ChatGPT, Gemini, Claude and Midjourney. Stay organized and create better prompts.",
+      },
+      { name: "author", content: "Productivity Hub" },
+      { name: "theme-color", content: "#7c3aed" },
+      { property: "og:title", content: "Productivity Hub — Tasks & AI Prompt Maker" },
+      {
+        property: "og:description",
+        content:
+          "A modern dashboard combining a to-do list manager and an AI prompt generator.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/icon-192.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -103,6 +118,7 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <HeadContent />
       </head>
       <body>
@@ -118,8 +134,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AppLayout>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </AppLayout>
+      <Toaster position="top-center" richColors theme="system" />
     </QueryClientProvider>
   );
 }
