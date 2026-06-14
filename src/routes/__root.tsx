@@ -101,6 +101,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Productivity Hub — Tasks & AI Prompt Maker" },
+      { name: "description", content: "Productivity Hub is a modern web app that combines a to-do list manager and an AI prompt generator." },
+      { property: "og:description", content: "Productivity Hub is a modern web app that combines a to-do list manager and an AI prompt generator." },
+      { name: "twitter:description", content: "Productivity Hub is a modern web app that combines a to-do list manager and an AI prompt generator." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/65698cd0-14b1-4bfd-91c1-5b18f5a39d17/id-preview-019e7cbe--2f53aa32-53b1-4476-8738-bab48df711e6.lovable.app-1781446221265.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/65698cd0-14b1-4bfd-91c1-5b18f5a39d17/id-preview-019e7cbe--2f53aa32-53b1-4476-8738-bab48df711e6.lovable.app-1781446221265.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
